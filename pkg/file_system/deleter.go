@@ -22,6 +22,9 @@ func NewSystemDeleter() *SystemDeleter {
 }
 
 func (s SystemDeleter) Delete(_ context.Context, path string) error {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		return nil
+	}
 	if err := os.Remove(path); err != nil {
 		return fmt.Errorf("SystemDeleter::Delete error while deleting file %s: %w", path, err)
 	}
