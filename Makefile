@@ -2,7 +2,7 @@ build-linux:
 	GOOS=linux GOARCH=arm go build -o bin/output
 
 build:
-	GOOS=linux GOARCH=arm go build -o bin/output
+	go build -o bin/output
 
 tidy:
 	go mod tidy

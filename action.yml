@@ -1,0 +1,18 @@
+name: 'Deployer'
+description: 'Deploy project by config'
+inputs:
+  type:
+    description: 'Type of deploy'
+    required: true
+    default: 'ftp'
+  config:
+    description: 'Config of deploy'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - -t
+    - ${{ inputs.type }}
+    - -c
+    - ${{ inputs.config }}
