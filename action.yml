@@ -12,6 +12,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - deploy
     - -t
     - ${{ inputs.type }}
     - -c
