@@ -31,6 +31,11 @@ func NewFtpDeployer(config *FtpConfig) (*FtpDeployer, error) {
 
 	//create env generator
 	envGenerator := generator.NewEnvironmentGenerator()
+	host, err := envGenerator.Generate(context.Background(), []byte(config.Sync.FtpConfig.Host))
+	if err != nil {
+		return nil, fmt.Errorf("FtpDeployer::NewFtpDeployer error while generating host: %w", err)
+	}
+
 	user, err := envGenerator.Generate(context.Background(), []byte(config.Sync.FtpConfig.User))
 	if err != nil {
 		return nil, fmt.Errorf("FtpDeployer::NewFtpDeployer error while generating user: %w", err)
@@ -42,7 +47,7 @@ func NewFtpDeployer(config *FtpConfig) (*FtpDeployer, error) {
 	}
 
 	ftpConnection := ftp.NewConnection(
-		config.Sync.FtpConfig.Host,
+		string(host),
 		string(user),
 		string(password),
 	)
